@@ -1,0 +1,23 @@
+{% extends 'layout/base.html' %}
+{% load custom_tag %}
+{% load static %}
+{% block title %}success | {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'mega/css/contact.css' %}" type="text/css">
+{% endblock %}
+{% block contents %}
+<section class="single-banner" style="background-image: url({{BG_COVER}}) !important">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-content">
+                    <h2>Votre demande a ete effectue avec succes</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+

@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 from django import template
+
 import mistune
 def index(request):
     """首页展示"""
@@ -44,20 +45,51 @@ def podcast_detail(request, id):
     return render(request, 'play.html',context)
 
 def article_detail(request,id):
-    """文章详情页"""
-    # 取出相应的文章
-    article = Article.objects.get(id=id)
-    # 增加阅读数
-    article.click_count += 1
-    article.save(update_fields=['click_count'])
-    #前台mK解析
-    mk = mistune.Markdown()
-    output = mk(article.content)
-    # 需要传递给模板的对象
-    context = {
-        'article': article,
-        'article_detail_html': output,
-    }
+    if request.method == 'POST':
+        """文章详情页"""
+        # 取出相应的文章
+        article = get_object_or_404(Article, id=id)
+        comments = article.comments.filter(active=True)
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            # Assign the current article to the comment
+            new_comment.article = article
+            # Save the comment to the database
+            new_comment.save()
+        #前台mK解析
+        mk = mistune.Markdown()
+        output = mk(article.content)
+        # 需要传递给模板的对象
+        context = {
+            'article': article,
+            'article_detail_html': output,
+            'comments': comments,
+            'comment_form': comment_form,
+        }
+    else:
+        comment_form = CommentForm(data=request.POST)
+        article = get_object_or_404(Article, id=id)
+        comments = article.comments.filter(active=True)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            # Assign the current article to the comment
+            new_comment.article = article
+            # Save the comment to the database
+            new_comment.save()
+        # 增加阅读数
+        article.click_count += 1
+        article.save(update_fields=['click_count'])
+        #前台mK解析
+        mk = mistune.Markdown()
+        output = mk(article.content)
+        # 需要传递给模板的对象
+        context = {
+            'article': article,
+            'article_detail_html': output,
+            'comments': comments,
+            'comment_form': comment_form,
+        }
     # 载入模板，并返回context对象
     return render(request,'article_detail.html',context)
 
@@ -72,10 +104,13 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             instance = form.save()
+            redirect('/message-success')
         else:
             form = ContactForm()
-        return render(request, template, {'contactform':form})
     return render(request, "contact.html")
+
+def success(request):
+    return render(request, "success.html")
 
 def category_tag(request):
     '''分类和标签页'''

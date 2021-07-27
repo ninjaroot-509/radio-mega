@@ -27,6 +27,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     #contact
     path('contact/', views.contact, name='contact'),
+    #success
+    path('message-success/', views.success, name='success'),
     #path('favicon.ico', serve, {'path': 'static/img/favicon.ico'}),
     #path('favicon.ico', RedirectView.as_view(url='static/img/favicon.ico')),
 ] 

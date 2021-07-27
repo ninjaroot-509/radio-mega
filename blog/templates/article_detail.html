@@ -54,14 +54,14 @@
                     {{ article_detail_html|custom_markdown| safe }}
                 </div>
                 <div class="blog-det-quote">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id distinctio nulla velit est quidem repellendus esse non saepe cumque sapiente.</p>
-                    <span>jaurge anderson</span>
+                    <p>La populace ne peut faire que des émeutes. Pour faire une révolution il faut le peuple.</p>
+                    <span>Victor Hugo</span>
                 </div>
                 
                 <div class="blog-det-footer">
                     <ul class="blog-det-tag">
                         <li>
-                            <h4>Tags:</h4>
+                            <h4>Mots clés:</h4>
                         </li>
                         {% for tag in article.tag.all %}
                         <li><a href="#">{{ tag.name }}</a></li>
@@ -69,25 +69,26 @@
                     </ul>
                     <ul class="blog-det-share">
                         <li>
-                            <h4>Share:</h4>
+                            <h4>Partager:</h4>
                         </li>
                         <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
                         <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                         <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                     </ul>
                 </div>
-                <div class="blog-det-author">
+                <div class="blog-det-author"> 
                     <div class="author-img">
-                        <a href="#"><img src="https://mironmahmud.com/ushno/assets/img/author.jpg" alt="author"></a>
+                        <a href="#"><img src="https://pbs.twimg.com/profile_images/1146866497551241217/tVDn6zHi_400x400.jpg" alt="author"></a>
                         <ul class="author-social">
-                            <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            {% for a in social %}
+                                <li><a href="{{ a.social_url }}" target="_blank" data-tooltip="{{a.social_des}}:{{ a.social_url }}" data-position="top" data-delay="50"><i class="{{ a.social_icon }}"></i></a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="author-content">
-                        <h4>Margarate Threcher <a href="#">www.margarate.com</a></h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ab aperiam corrupti maiores animi nisi ratione maxime quae in doloremque corporis tempore earum ut voluptas exercitationem.</p>
+                        <h4>Alex Saint-Surin, PDG<a href="https://twitter.com/alexsaintsurin">@alexsaintsurin</a>
+                        </h4>
+                        <p>Pourriture d’élection dans un système archaïque, ne fait qu’augmenter la misère des pauvres et engendrer un climat propice à l’affaiblissement du corps social haitien. Taisez-vous et partez</p>
                     </div>
                 </div>
                 <div class="blog-det-navigate">
@@ -96,65 +97,39 @@
                     </div>
                     <div class="navigate-post"><img src="{{article.get_next_by_add_time.cover.url}}" alt="">
                         <h4><a href="{% url 'article_detail' article.get_next_by_add_time.pk %}">{{article.get_next_by_add_time.title|truncatechars:40}}</a></h4>
-                    </div><a href="{% url 'article_detail' article.get_previous_by_add_time.pk %}" class="prev-arrow"><i class="fas fa-long-arrow-alt-left"></i>Previous Post</a><a href="{% url 'article_detail' article.get_next_by_add_time.pk %}" class="next-arrow">Next Post<i class="fas fa-long-arrow-alt-right"></i></a></div>
+                    </div><a href="{% url 'article_detail' article.get_previous_by_add_time.pk %}" class="prev-arrow"><i class="fas fa-long-arrow-alt-left"></i>Article précédent</a><a href="{% url 'article_detail' article.get_next_by_add_time.pk %}" class="next-arrow">Prochain article<i class="fas fa-long-arrow-alt-right"></i></a></div>
                 <div class="blog-det-comment">
-                    <h3>Comments (3)</h3>
+                    <h3>Espace commentaires</h3>
                     <ul class="comment-list">
+                        {% for comment in comments %}
                         <li>
                             <div class="comment">
                                 <div class="comment-img">
-                                    <a href="#"><img src="https://mironmahmud.com/ushno/assets/img/comment-1.jpg" alt="comment-1"></a>
+                                    <a href="#"><img src="{{LOGO}}" alt="comment-3"></a>
                                 </div>
                                 <div class="comment-content">
-                                    <h4>Miron Mahmud <span>02 February 2020</span></h4>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ab aperiam corrupti maiores animi nisi ratione maxime quae in doloremque corporis tempore earum ut voluptas exercitationem.</p>
+                                    <h4>{{comment.name}} <span>{{comment.created | timesince}}</span></h4>
+                                    <p>{{comment.body}}</p>
                                 </div>
-                                <div class="comment-reply"><a href="#"><i class="fas fa-reply-all"></i>reply</a></div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment">
-                                        <div class="comment-img">
-                                            <a href="#"><img src="https://mironmahmud.com/ushno/assets/img/comment-2.jpg" alt="comment-2"></a>
-                                        </div>
-                                        <div class="comment-content">
-                                            <h4>Tahmina Bonny <span>02 February 2020</span></h4>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ab aperiam corrupti maiores animi nisi ratione maxime quae in doloremque corporis tempore earum ut voluptas exercitationem.</p>
-                                        </div>
-                                        <div class="comment-reply"><a href="#"><i class="fas fa-reply-all"></i>reply</a></div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment">
-                                <div class="comment-img">
-                                    <a href="#"><img src="https://mironmahmud.com/ushno/assets/img/comment-3.jpg" alt="comment-3"></a>
-                                </div>
-                                <div class="comment-content">
-                                    <h4>Labonno Khan <span>02 February 2020</span></h4>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ab aperiam corrupti maiores animi nisi ratione maxime quae in doloremque corporis tempore earum ut voluptas exercitationem.</p>
-                                </div>
-                                <div class="comment-reply"><a href="#"><i class="fas fa-reply-all"></i>reply</a></div>
+                                <!-- <div class="comment-reply"><a href="#"><i class="fas fa-reply-all"></i>réponse</a></div> -->
                             </div>
                         </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="blog-det-form">
-                    <h3>Leave Your Comment</h3>
-                    <form>
+                    <h3>Laisse ton commentaire</h3>
+                    <form role="form" id="form" action="" method="post">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="form-group"><input type="text" placeholder="Your Name"><i class="fas fa-user"></i></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group"><input type="email" placeholder="Your Email"><i class="fas fa-envelope"></i></div>
+                                <div class="form-group"><input type="text" name="name" placeholder="votre nom"><i class="fas fa-user"></i></div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="form-group"><textarea placeholder="Your Comment"></textarea><i class="fas fa-pen-nib"></i></div>
+                                <div class="form-group"><textarea name="body" id="id_body" placeholder="Votre commentaire"></textarea><i class="fas fa-pen-nib"></i></div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="form-btn"><button type="submit" class="btn btn-inline"><i class="fas fa-tint"></i><span>Drop your comment</span></button></div>
+                                <div class="form-btn"><button type="submit" class="btn btn-inline"><i class="fas fa-tint"></i><span>Déposez votre commentaire</span></button></div>
                             </div>
                         </div>
                     </form>

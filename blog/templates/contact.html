@@ -1,0 +1,82 @@
+{% extends 'layout/base.html' %}
+{% load custom_tag %}
+{% load static %}
+{% block title %}Contacter nous | {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'mega/css/contact.css' %}" type="text/css">
+{% endblock %}
+{% block contents %}
+<section class="single-banner" style="background-image: url({{BG_COVER}}) !important">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-content">
+                    <h2>Nous contacter</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="contact-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="contact-info"><i class="fas fa-map-marker-alt"></i>
+                    <h3>Trouve nous</h3>
+                    <p>97 Av. Panaméricaine, Pétion-Ville <span>Haiti</span></p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-info"><i class="fas fa-phone-alt"></i>
+                    <h3>Passer un coup de téléphone</h3>
+                    <p><a href="tel://009-215-5596">009-215-5596</a> (gratuit) <span><a href="tel://009-215-5595"></a></span></p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-info"><i class="fas fa-envelope"></i>
+                    <h3>Envoyer un mail</h3>
+                    <p><a href="mailto:ninjaroot509@gmail.com">contact@radiomega.com</a> <span><a href="mailto:ninjaroot509@gmail.com">info@radiomega.com</a></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <form class="contact-form" role="form" id="form" action="" method="post">
+                    {% csrf_token %}
+                    <label class="contact-label">
+                        <input type="text" name="name" placeholder="Votre nom"><i class="fas fa-user"></i>
+                    </label>
+                    <label class="contact-label">
+                        <input type="text" name="email" placeholder="Votre email"><i class="fas fa-envelope"></i>
+                    </label>
+                    <label class="contact-label">
+                        <input type="text" name="sujet" placeholder="Votre sujet"><i class="fas fa-bookmark"></i>
+                    </label>
+                    <label
+                        class="contact-label">
+                        <textarea name="body" id="body" placeholder="Votre message"></textarea><i class="fas fa-pen-nib"></i>
+                    </label>
+                    <button type="submit" class="btn btn-inline">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Envoyer le message</span>
+                    </button>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.231946765968!2d-72.29332338510723!3d18.51841768741032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e8795fe36ac1%3A0x9d1a04736ed74fd8!2sHarry&#39;s!5e0!3m2!1sfr!2sht!4v1627343630752!5m2!1sfr!2sht"
+                        width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="100%" aria-hidden="false" tabindex="0">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+

@@ -1,0 +1,128 @@
+{% extends 'layout/base.html' %}
+{% load custom_tag %}
+{% load static %}
+{% block title %}Listes des articles | {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'mega/css/blog-list.css' %}" type="text/css">
+{% endblock %}
+{% block contents %}
+<section class="single-banner" style="background-image: url({{BG_COVER}}) !important">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-content">
+                    <h2>Liste des articles</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Liste des articles</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="blog-part">
+    <div class="container">
+        <div class="row content-reverse">
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="blog-src"><input type="text" placeholder="Rechercher..."><button><i class="fas fa-search"></i></button></form>
+                    </div>
+                    <div class="col-md-7 col-lg-12">
+                        <div class="blog-filter">
+                            <h3>articles populaire</h3>
+                            <ul class="blog-suggest">
+                                {% for top_article in top_articles %}
+                                <li>
+                                    <div class="suggest-img">
+                                        <a href="{% url 'article_detail' top_article.id %}"><img src="{{ top_article.cover.url }}" alt="suggest-1"></a>
+                                    </div>
+                                    <div class="suggest-content">
+                                        <div class="suggest-title">
+                                            <h4><a href="{% url 'article_detail' top_article.id %}">{{ top_article.title|truncatechars:40 }}</a></h4>
+                                        </div>
+                                        <div class="suggest-meta">
+                                            <div class="suggest-date"><i class="far fa-calendar-alt"></i>
+                                                <p>{{top_article.add_time | timesince}}</p>
+                                            </div>
+                                            <!-- <div class="suggest-comment"><i class="far fa-comments"></i>
+                                                <p>16</p>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-12">
+                        <div class="blog-filter">
+                            <h3>Meilleurs tags</h3>
+                            <ul class="blog-tag">
+                                <li><a href="#">domain</a></li>
+                                <li><a href="#">cloud</a></li>
+                                <li><a href="#">web</a></li>
+                                <li><a href="#">payment</a></li>
+                                <li><a href="#">E-commerce</a></li>
+                                <li><a href="#">Sequerity</a></li>
+                                <li><a href="#">solution</a></li>
+                                <li><a href="#">offer</a></li>
+                                <li><a href="#">support</a></li>
+                                <li><a href="#">knowladge</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-12">
+                        <div class="blog-filter">
+                            <h3>Suivez nous</h3>
+                            <ul class="blog-icon">
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="blog-ad">
+                            <a href="#"><img src="https://mironmahmud.com/ushno/assets/img/ad-banner.jpg" alt="ad-banner"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for article in all_articles %}
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="blog-card"><img src="{{ article.cover.url }}" alt="blog-1" style="height: 300px;">
+                            <div class="blog-overlay">
+                                <p>{{article.add_time | timesince}}</p>
+                                <h3><a href="{% url 'article_detail' article.id %}">{{ article.title|truncatechars:40 }}</a></h3>
+                                <a class="btn btn-outline" href="{% url 'article_detail' article.id %}">Lire Plus</a></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">...</li>
+                            <li class="page-item"><a class="page-link" href="#">67</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+

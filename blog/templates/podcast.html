@@ -1,0 +1,74 @@
+{% extends 'layout/base.html' %}
+{% load custom_tag %}
+{% load static %}
+{% block title %}Listes des emissions | {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'mega/css/show.css' %}" type="text/css">
+{% endblock %}
+{% block contents %}
+<section class="single-banner" style="background-image: url({{BG_COVER}}) !important">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-content">
+                    <h2>Liste des emissions</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Liste des emissions</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section show-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Nos dernieres emission</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    {% for top_emission in emis %}
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="show-card">
+                            <div class="show-content">
+                                <div class="show-bg">
+                                    <img src="{{top_emission.image.url}}" alt="show-1">
+                                </div>
+                                <div class="show-overlay">
+                                    <a href="{% url 'podcast_detail' top_emission.id %}">
+                                        <div class="show-time">
+                                            <p>{{top_emission.date_time | timesince}}</p>
+                                            <h4>{{top_emission.title}}</h4>
+                                        </div>
+                                    </a>
+                                        <ul class="show-host">
+                                            <li>
+                                                <a href="{% url 'podcast_detail' top_emission.id %}"><img src="{% static 'mega/images/about-1.jpg' %}" alt="host-1"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <div class="show-meta">
+                                <h5>Radio Mega Emissions</h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+{% endblock %}
+
+
+

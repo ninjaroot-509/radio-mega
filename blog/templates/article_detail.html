@@ -6,16 +6,16 @@
 <link rel="stylesheet" href="{% static 'mega/css/blog-details.css' %}" type="text/css">
 {% endblock %}
 {% block contents %}
-<section class="single-banner">
+<section class="single-banner" style="background-image: url({{BG_COVER}}) !important">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="single-content">
-                    <h2>Blog Details</h2>
+                    <h2>Article détails</h2>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="blog-list.html">Blog-list</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Blog-Details</li>
+                        <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+                        <li class="breadcrumb-item"><a href="articles/">Liste des articles</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">article-détails</li>
                     </ol>
                 </div>
             </div>
@@ -64,11 +64,8 @@
                             <h4>Tags:</h4>
                         </li>
                         {% for tag in article.tag.all %}
-                        <li><a href="{% url 'article_tag' tag.id %}">{{ tag.name }}</a></li>
-                                {% endfor %}
-                        <li><a href="#">Crowd</a></li>
-                        <li><a href="#">Party</a></li>
-                        <li><a href="#">Concert</a></li>
+                        <li><a href="#">{{ tag.name }}</a></li>
+                        {% endfor %}
                     </ul>
                     <ul class="blog-det-share">
                         <li>
@@ -94,12 +91,12 @@
                     </div>
                 </div>
                 <div class="blog-det-navigate">
-                    <div class="navigate-post"><img src="https://mironmahmud.com/ushno/assets/img/blog-details.jpg" alt="">
-                        <h4><a href="#">Lorem ipsum dolor amet consectetur quod earum soluta adipisicing.</a></h4>
+                    <div class="navigate-post"><img src="{{article.get_previous_by_add_time.cover.url}}" alt="">
+                        <h4><a href="{% url 'article_detail' article.get_previous_by_add_time.pk %}">{{article.get_previous_by_add_time.title|truncatechars:40}}</a></h4>
                     </div>
-                    <div class="navigate-post"><img src="https://mironmahmud.com/ushno/assets/img/blog-details.jpg" alt="">
-                        <h4><a href="#">Lorem ipsum dolor amet consectetur quod earum soluta adipisicing.</a></h4>
-                    </div><a href="#" class="prev-arrow"><i class="fas fa-long-arrow-alt-left"></i>Previous Post</a><a href="#" class="next-arrow">Next Post<i class="fas fa-long-arrow-alt-right"></i></a></div>
+                    <div class="navigate-post"><img src="{{article.get_next_by_add_time.cover.url}}" alt="">
+                        <h4><a href="{% url 'article_detail' article.get_next_by_add_time.pk %}">{{article.get_next_by_add_time.title|truncatechars:40}}</a></h4>
+                    </div><a href="{% url 'article_detail' article.get_previous_by_add_time.pk %}" class="prev-arrow"><i class="fas fa-long-arrow-alt-left"></i>Previous Post</a><a href="{% url 'article_detail' article.get_next_by_add_time.pk %}" class="next-arrow">Next Post<i class="fas fa-long-arrow-alt-right"></i></a></div>
                 <div class="blog-det-comment">
                     <h3>Comments (3)</h3>
                     <ul class="comment-list">

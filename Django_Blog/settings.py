@@ -168,9 +168,17 @@ SIMPLEUI_CONFIG = {
                 'icon': 'fas fa-book-open',
                 'url': '/admin/blog/article/'
             },{
-                'name': 'classification',
-                'icon': 'fas fa-list',
-                'url': '/admin/blog/category/'
+                'name': 'commentaires',
+                'icon': 'fas fa-sms',
+                'url': '/admin/blog/comment/'
+            },{
+                'name': 'emissions',
+                'icon': 'fas fa-music',
+                'url': '/admin/blog/emission/'
+            },{
+                'name': 'contact',
+                'icon': 'fas fa-envelope',
+                'url': '/admin/blog/contact/'
             },{
                 'name': 'étiqueter',
                 'icon': 'fas fa-tags',
@@ -181,33 +189,9 @@ SIMPLEUI_CONFIG = {
         'icon': 'far fa-user',
         'url': '/admin/blog/link/'
     }, {
-        'name': 'Tableau d!affichage',
-        'icon': 'fas fa-bullhorn',
-        'url': '/admin/blog/notice/'
-    },{
-        'name': 'À propos de',
-        'icon': 'fas fa-address-card',
-        'models': [{
-            'name': 'Informations de base',
-            'icon': 'far fa-file',
-            'url': '/admin/blog/about/'
-            },{
-            'name': 'Intelligence sociale',
-            'icon': 'fas fa-comment-alt',
-            'url': '/admin/blog/social/'
-            },{
-            'name': 'compétence',
-            'icon': 'fas fa-drafting-compass',
-            'url': '/admin/blog/skill/'
-            }]
-    }, {
         'name': 'Paramètres du site Web',
         'icon': 'fas fa-globe-americas',
         'url': '/admin/blog/site/'
-    }, {
-        'name': 'Valine Commentaire',
-        'icon': 'far fa-comments',
-        'url': '/admin/blog/valine/'
     }, {
         'app': 'auth',
         'name': 'Utilisateur et autorisation',

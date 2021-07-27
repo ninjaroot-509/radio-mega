@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from .models import Article,Link,Category,Tag,Notice,Valine,About,Site,Social,Skill
+from .models import *
+from .forms import *
+from django import template
 import mistune
 def index(request):
     """首页展示"""
@@ -7,15 +9,39 @@ def index(request):
     all_articles = Article.objects.all()
     # 取出要推荐的博客文章
     top_articles = Article.objects.filter(is_recommend=True)
-    notices = Notice.objects.all()
+    top_emission = Emission.objects.all()[:8]
+    links = Link.objects.all()
     # 需要传递给模板（templates）的对象
     context = {
         'all_articles': all_articles,
         'top_articles': top_articles,
-        'notices': notices
+        'top_emissions': top_emission,
+        'links':links,
                }
-    # render函数：载入模板，并返回context对象
     return render(request, 'index.html',context)
+
+def articles(request):
+    all_articles = Article.objects.all()
+    top_articles = Article.objects.filter(is_recommend=True)
+    context = {
+        'all_articles': all_articles,
+        'top_articles': top_articles,
+    }
+    return render(request, 'blog-list.html',context)
+
+def podcast(request):
+    emi = Emission.objects.all()
+    context = {
+        'emis': emi,
+    }
+    return render(request, 'podcast.html',context)
+
+def podcast_detail(request, id):
+    emi = Emission.objects.get(id=id)
+    context = {
+        'emi': emi,
+    }
+    return render(request, 'play.html',context)
 
 def article_detail(request,id):
     """文章详情页"""
@@ -24,13 +50,11 @@ def article_detail(request,id):
     # 增加阅读数
     article.click_count += 1
     article.save(update_fields=['click_count'])
-    valine = Valine.objects.first()#取第一条数据
     #前台mK解析
     mk = mistune.Markdown()
     output = mk(article.content)
     # 需要传递给模板的对象
     context = {
-        'valine': valine,
         'article': article,
         'article_detail_html': output,
     }
@@ -42,6 +66,16 @@ def member(request):
     links = Link.objects.all()
     context = {'links':links,}
     return render(request,'member.html',context)
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            instance = form.save()
+        else:
+            form = ContactForm()
+        return render(request, template, {'contactform':form})
+    return render(request, "contact.html")
 
 def category_tag(request):
     '''分类和标签页'''
@@ -76,7 +110,6 @@ def article_tag(request,id):
     return render(request, 'article_tag.html', context)
 
 def add_nav(request):
-    '''导航栏'''
     category_nav = Category.objects.filter(add_menu=True).order_by('index')
     context = {
         'category_nav': category_nav,
@@ -87,24 +120,21 @@ def about(request):
     articles = Article.objects.all().order_by('-add_time')
     categories = Category.objects.all()
     tags = Tag.objects.all()
-    about = About.objects.first()
-    skill =Skill.objects.all()
+    links = Link.objects.all()
     return render(request, 'about.html', {
         'articles': articles,
         'categories': categories,
         'tags': tags,
-        'about': about,
-        'skill': skill,
+        'links':links,
     })
 
 def global_params(request):
-    """全局变量"""
-    #分类是否增加到导航栏
     category_nav = Category.objects.filter(add_menu=True).order_by('index')
     site_name = Site.objects.first().site_name
     logo = Site.objects.first().logo.url
     keywords = Site.objects.first().keywords
     desc = Site.objects.first().desc
+    about_text = Site.objects.first().about_text
     slogan = Site.objects.first().slogan
     dynamic_slogan = Site.objects.first().dynamic_slogan
     bg_cover = Site.objects.first().bg_cover.url
@@ -123,4 +153,5 @@ def global_params(request):
         'ICP_NUMBER': icp_number,
         'RADIO_URL': icp_url,
         'social': social,
+        'ABOUT_TEXT': about_text
     }

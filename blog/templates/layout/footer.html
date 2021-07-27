@@ -1,3 +1,4 @@
+{% load static %}
 <footer class="footer-part footer-gape">
     <div class="container">
         <div class="row">
@@ -10,7 +11,7 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <form class="news-form"><input type="text" placeholder="Enter email for Newsletter"><button class="btn btn-inline"><i class="fas fa-envelope"></i><span>Subscribe</span></button></form>
+                <form class="news-form"><input type="text" placeholder="Entrez le courrier électronique pour la newsletter"><button class="btn btn-inline"><i class="fas fa-envelope"></i><span>S'abonner</span></button></form>
             </div>
         </div>
         <div class="row">
@@ -21,10 +22,10 @@
                 </div>
                 <ul class="footer-address">
                     <li><i class="fas fa-map-marked-alt"></i>
-                        <p>1000 New York, USA.</p>
+                        <p>97 Av. Panaméricaine, Pétion-Ville, Haiti.</p>
                     </li>
                     <li><i class="fas fa-envelope-open-text"></i>
-                        <p>support@ushno.com</p>
+                        <p>support@radiomega.com</p>
                     </li>
                     <li><i class="fas fa-phone"></i>
                         <p>+1 866-648-4023</p>
@@ -33,31 +34,30 @@
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="footer-heading">
-                    <h3>important links</h3>
+                    <h3>Liens importants</h3>
                 </div>
                 <ul class="footer-link">
-                    <li><a href="#"><i class="fas fa-angle-right"></i>about ushno radio</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i>career opportunity of ushno</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i>become a sponsor</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i>career opportunity</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i>about ushno radio</a></li>
+                    <li><a href="/about"><i class="fas fa-angle-right"></i>À propos de Radio Mega</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i>Opportunité de carrière de radiomega</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i>devenir un sponsor</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i>opportunité de carrière</a></li>
                 </ul>
             </div>
             <div class="col-lg-4">
                 <div class="footer-heading">
-                    <h3>download the app</h3>
+                    <h3>Téléchargez l'application</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis ea fuga necessitatibus repellat mollitia consequatur cupiditate provident quia tempore, rem voluptatibus officia delectus.</p>
                 </div>
                 <div class="download-part">
                     <ul>
                         <li>
-                            <h5>available on -</h5>
+                            <h5>Disponible sur -</h5>
                         </li>
                         <li>
-                            <a href="#"><img src="https://mironmahmud.com/ushno/assets/img/google.png" alt="google"></a>
+                            <a href="#"><img src="{% static 'mega/images/google.png' %}" alt="google"></a>
                         </li>
                         <li>
-                            <a href="#"><img src="https://mironmahmud.com/ushno/assets/img/app.png" alt="app"></a>
+                            <a href="#"><img src="{% static 'mega/images/app.png' %}" alt="app"></a>
                         </li>
                     </ul>
                 </div>
@@ -75,7 +75,7 @@
                 <h6>Tous droits réservés par - <span>Radio Mega</span></h6>
             </li>
             <li>
-                <h6>Développé par - <a href="https://www.djangoproject.com/" target="_blank">Doctype_Coders</a></h6>
+                <h6>Développé par - <a href="https://www.doctypecoders.com/" target="_blank">Doctype_Coders</a></h6>
             </li>
         </ul>
     </div>

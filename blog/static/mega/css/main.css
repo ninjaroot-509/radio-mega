@@ -34,10 +34,10 @@
     --team-hover-oly: linear-gradient(rgba(91, 68, 114, 0.3), rgba(48, 79, 255, 0.7));
     --show-oly: linear-gradient(rgba(0, 47, 255, 0.5), rgba(0, 17, 255, 0.5));
     --show-hover-oly: linear-gradient(rgba(25, 0, 255, 0.85), rgba(62, 48, 255, 0.85));
-    --blog-oly: linear-gradient(to top, rgba(0, 26, 255, 0.5), rgba(25, 0, 255, 0.1));
+    --blog-oly: linear-gradient(to top, rgba(0, 26, 255, 0.5), rgba(0, 26, 255, 0.1));
     --blog-hover-oly: linear-gradient(to top, rgba(17, 0, 255, 0.7), rgba(0, 17, 255, 0.3));
-    --about-oly: linear-gradient(rgba(91, 68, 114, 0.2), rgba(51, 48, 255, 0.3));
-    --counter-oly: linear-gradient(rgba(128, 0, 255, 0.7), rgba(203, 48, 255, 0.9))
+    --about-oly: linear-gradient(rgba(68, 73, 114, 0.2), rgba(48, 79, 255, 0.3));
+    --counter-oly: linear-gradient(rgba(0, 47, 255, 0.5), rgba(0, 17, 255, 0.5));
 }
 
 * {

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article,Category,Tag,Link,Site,Notice,Valine,About,Social,Skill
+from .models import *
 from import_export.admin import ImportExportModelAdmin
 from django.db import models
 # 注册Article到admin中
@@ -56,38 +56,27 @@ class TagAdmin(admin.ModelAdmin):
 #成员
 @admin.register(Link)
 class LinkAdmin(ImportExportModelAdmin):
-    list_display = ['title','url','avatar_admin','desc','button_word']
-    list_editable = ['url','button_word']
-    search_fields = ('title', 'url', 'desc')
+    list_display = ['name','avatar_admin','desc']
+    search_fields = ('name',)
 
-#公告栏
-@admin.register(Notice)
-class NoticeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'content','icon','icon_data']
-    list_editable = ['icon']
-#网站设置
 @admin.register(Site)
 class SiteAdmin(ImportExportModelAdmin):
-    list_display = ['site_name','logo_preview','keywords','desc','slogan','dynamic_slogan','bgcover_preview','icp_number','icp_url']
-from django.forms import PasswordInput
-#valine评论
-@admin.register(Valine)
-class ValineAdmin(admin.ModelAdmin):
-    list_display = ['appid','appkey','avatar','pagesize','placeholder']
-
-#关于
-@admin.register(About)
-class AboutAdmin(admin.ModelAdmin):
-    list_display = ['avatar_admin','career','introduction','skill_title']
-    list_display_links = ('career',)
-
-# 社交
-@admin.register(Social)
-class SocialAdmin(admin.ModelAdmin):
-    list_display = ['social_desc', 'social_url', 'social_icon','icon_data']
-    list_editable = ['social_icon']
+    list_display = ['site_name','logo_preview','keywords','about_text','slogan','dynamic_slogan','bgcover_preview','icp_number','icp_url']
 
 # 技能
-@admin.register(Skill)
-class SocialAdmin(admin.ModelAdmin):
-    list_display = ['skill_name',  'skill_precent']
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['name', 'body', 'created']
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['name',  'sujet', 'email', 'body', 'created']
+
+@admin.register(Emission)
+class EmissionAdmin(admin.ModelAdmin):
+    '''Admin View for Emission'''
+
+    list_display = ('title', 'date_time',)
+    list_filter = ('date_time',)
+    search_fields = ('title',)
+    date_hierarchy = 'date_time'

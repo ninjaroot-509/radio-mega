@@ -1,0 +1,48 @@
+{% extends 'layout/base.html' %}
+{% load custom_tag %}
+{% load static %}
+{% block title %}Listes des emissions | {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'mega/css/show.css' %}" type="text/css">
+{% endblock %}
+{% block contents %}
+<section class="single-banner" style="background-image: url({{BG_COVER}}) !important">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-content">
+                    <h2>{{emi.title}}</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{emi.title}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section show-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>"{{emi.title}}"</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <audio src="{{emi.audio.url}}" controls></audio>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+{% endblock %}
+
+
+

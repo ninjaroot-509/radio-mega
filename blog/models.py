@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.utils.html import format_html
 from mdeditor.fields import MDTextField
+
 class Category(models.Model):
     '''Classification des articles'''
     name = models.CharField(max_length=20, verbose_name='Nom de catégorie')
@@ -62,69 +63,60 @@ class Article(models.Model):
     def __str__(self):
         return self.title    #将文章标题返回
 
+class Contact(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200)
+    sujet = models.CharField(max_length=200)
+    body = models.TextField()
+    created = models.DateField(auto_now_add=True)
+ 
+    def __str__(self):
+        return self.name + "-" +  self.name
+
+class Comment(models.Model):
+    article = models.ForeignKey(Article, related_name='comments', on_delete=models.CASCADE)
+    reply_to = models.ForeignKey('self', related_name='replies',null=True, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=180)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ('created',)
+    
+    def __str__(self):
+        return 'Comment by {} on {}'.format(self.name, self.post)
+
+class Emission(models.Model): 
+    title = models.CharField(max_length=500)
+    date_time = models.DateTimeField(verbose_name='Date de l!emission')
+    audio = models.FileField(upload_to='emissions-file/')
+    image = models.ImageField(upload_to='emissions-images/')
+    class Meta:
+        verbose_name = 'Listes des Emissions'
+        verbose_name_plural = verbose_name
+        ordering = ('-date_time',)
+
+    def __str__(self):
+        return self.title
+
 class Link(models.Model):
     '''成员'''
-    title = models.CharField(max_length=10,verbose_name='Titre')
-    url = models.URLField(verbose_name='Site Internet',blank=True)
-    avatar = models.URLField(default='https://i.loli.net/2020/04/23/jGP8gQOYW75TSJp.png',verbose_name='Avataratar')
-    desc = models.TextField(max_length=50,verbose_name='la description')
-    button_word =models.CharField(default='Visiter le blog',max_length=10,verbose_name='Texte de saut')
+    name = models.CharField(max_length=100,verbose_name='Nom Complet')
+    avatar = models.ImageField(upload_to='members-images/', verbose_name='Avatar Photo')
+    FB_link = models.URLField(verbose_name='Lien Facebook',blank=True)
+    WA_link = models.URLField(verbose_name='Numero Whatsapp',blank=True)
+    TW_link = models.URLField(verbose_name='Lien Twitter',blank=True)
+    desc = models.CharField(max_length=100,verbose_name='la description')
     class Meta:
         verbose_name=verbose_name_plural='membre'
     #后台头像预览
     def avatar_admin(self):
-        return format_html( '<img src="{}" width="50px" height="50px" style="border-radius: 50%;" />',self.avatar,)
+        return format_html( '<img src="{}" width="50px" height="50px" style="border-radius: 50%;" />',self.avatar.url,)
     avatar_admin.short_description = 'Avatar Aperçu'
     def __str__(self):
-        return self.title
-
-class Notice(models.Model):
-    '''公告栏'''
-    title = models.CharField(max_length=30,verbose_name='Titre du babillard')
-    content = models.TextField(max_length=500,verbose_name='Contenu de l!annonce')
-    icon = models.CharField(default='far fa-lightbulb',max_length=50,verbose_name='Icône d!annonce')
-    class Meta:
-        verbose_name=verbose_name_plural='公告栏'
-    def icon_data(self):
-        return format_html('<h1><i class="{}"></i></h1>',self.icon) #转化为<i class="{self.icon}"></i>
-    icon_data.short_description = 'Aperçu de l!icône'
-    def __str__(self):
-        return self.title
-
-class Valine(models.Model):
-    '''valine评论'''
-    appid = models.CharField(max_length=100,verbose_name='appId')
-    appkey = models.CharField(max_length=100, verbose_name='appKey')
-    avatar = models.CharField(default='',blank=True,max_length=100, verbose_name='avatar')
-    pagesize = models.IntegerField(default='10',verbose_name='pageSize')
-    placeholder = models.CharField(max_length=100, verbose_name='placeholder')
-    class Meta:
-        verbose_name = 'examen de la valine'
-        verbose_name_plural = verbose_name
-
-class About(models.Model):
-    '''A-propos'''
-    avatar = models.URLField(verbose_name='Avatar')
-    career = models.CharField(max_length=50,verbose_name='profession')
-    introduction = models.TextField(verbose_name='introduction')
-    skill_title = models.CharField(default='compétence',max_length=50, verbose_name='Titre de compétence')
-    class Meta:
-        verbose_name_plural = verbose_name = 'A-propos'
-    def avatar_admin(self):
-        return format_html( '<img src="{}" width="50px" height="50px" style="border-radius: 50%;" />',self.avatar,)
-    avatar_admin.short_description = 'Aperçu de l!avatar'
-
-class Social(models.Model):
-    '''Lien social'''
-    social_url = models.URLField(verbose_name='Lien social')
-    social_desc = models.CharField(max_length=50,verbose_name='introduction')
-    social_icon =models.CharField(max_length=50, default='fas fa-envelope', verbose_name='Icônes sociales')
-    class Meta:
-        verbose_name_plural = verbose_name = 'Social'
-    # 后台图标预览
-    def icon_data(self):
-        return format_html('<h1><i class="{}"></i></h1>', self.social_icon)
-    icon_data.short_description = '图标预览'
+        return self.name
 
 class Skill(models.Model):
     '''关于页技能'''
@@ -137,12 +129,26 @@ class Skill(models.Model):
         return format_html('<h1><i class="{}"></i></h1>', self.social_icon)
     icon_data.short_description = 'Aperçu de l!icône'
 
+class Social(models.Model):
+    '''Lien social'''
+    social_url = models.URLField(verbose_name='Lien social')
+    social_desc = models.CharField(max_length=50,verbose_name='introduction')
+    social_icon =models.CharField(max_length=50, default='fas fa-envelope', verbose_name='Icônes sociales')
+    
+    class Meta:
+        verbose_name_plural = verbose_name = 'Social'
+
+    def icon_data(self):
+        return format_html('<h1><i class="{}"></i></h1>', self.social_icon)
+    icon_data.short_description = 'Aperçu de l!icône'
+
 class Site(models.Model):
     """站点配置"""
     site_name = models.CharField(default='radio mega',max_length=30,verbose_name='Nom de site Web')
     keywords = models.CharField(default='Test de mots-clés',max_length=50, verbose_name='Mot-clé')
     logo = models.ImageField(upload_to='logo/', verbose_name='logo du site')
     desc = models.CharField(max_length=50, verbose_name='Description du site Web')
+    about_text = models.TextField(verbose_name='Apropos du site Web')
     slogan = models.CharField(max_length=50, verbose_name='Slogan de site')
     dynamic_slogan = models.CharField(max_length=50, verbose_name='Slogan dynamique')
     icp_number = models.CharField(max_length=40, verbose_name='numéro d!enregistrement')

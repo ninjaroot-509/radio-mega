@@ -153,6 +153,7 @@ class Site(models.Model):
     dynamic_slogan = models.CharField(max_length=50, verbose_name='Slogan dynamique')
     icp_number = models.CharField(max_length=40, verbose_name='numéro d!enregistrement')
     icp_url = models.URLField(default='http://example.com/',max_length=100, verbose_name='Lien d!enregistrement')
+    icp_url_2 = models.URLField(default='http://example.com/',max_length=100, verbose_name='Lien d!enregistrement 2')
     bg_cover = models.ImageField(upload_to='home-baner/', verbose_name='Image de fond')
 
     class Meta:

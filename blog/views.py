@@ -44,6 +44,9 @@ def podcast_detail(request, id):
     }
     return render(request, 'play.html',context)
 
+def mega_miami(request):
+    return render(request, 'mega_miami.html')
+
 def article_detail(request,id):
     if request.method == 'POST':
         """文章详情页"""
@@ -175,6 +178,7 @@ def global_params(request):
     bg_cover = Site.objects.first().bg_cover.url
     icp_number = Site.objects.first().icp_number
     icp_url = Site.objects.first().icp_url
+    icp_url2 = Site.objects.first().icp_url_2
     social = Social.objects.all()
     return {
         'category_nav': category_nav,
@@ -187,6 +191,7 @@ def global_params(request):
         'BG_COVER': bg_cover,
         'ICP_NUMBER': icp_number,
         'RADIO_URL': icp_url,
+        'RADIO_URL_2': icp_url2,
         'social': social,
         'ABOUT_TEXT': about_text
     }

@@ -15,6 +15,8 @@ urlpatterns = [
     path('member/',views.member,name='member'),
     #listes emissions
     path('emissions/', views.podcast, name='podcast'),
+    #mega miami
+    path('mega-miami/', views.mega_miami, name='mega-miami'),
     #podcast detail
     path('emissions/<int:id>', views.podcast_detail,name='podcast_detail'),
     #Classification et onglet
